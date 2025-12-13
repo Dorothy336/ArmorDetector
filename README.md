@@ -32,4 +32,50 @@
 ```Bash
 git clone https://github.com/yourusername/ArmorDetector.git
 cd ArmorDetector
+```
 4.2检查项目结构
+```Bash
+ls -la
+````
+应该可以看见以下文件(不包括演示视频，运行时自行添加)
+```text
+CMakeLists.txt
+main.cpp
+ArmorDetector.h
+ArmorDetector.cpp
+ArmorDescriptor.h
+ArmorDescriptor.cpp
+LightDescriptor.h
+LightDescriptor.cpp
+Params.h
+README.md
+```
+4.3创建构建目录
+```Bash
+# 进入项目目录
+cd ArmorDetector
+
+# 创建build目录（首次编译）
+mkdir build
+cd build
+```
+4.4配置CMake
+```Bash
+# 基本配置
+cmake ..
+
+# 如果需要指定OpenCV路径（如果安装了多个版本）
+cmake -D OpenCV_DIR=/path/to/opencv/build ..
+```
+4.5编译项目
+```Bash
+make
+```
+4.6运行项目<br>
+        之前的编译已经生成目标文件(我这里是main，可根据需要改动)
+```Bash
+./main
+```
+5.运行界面说明
+---------
+
