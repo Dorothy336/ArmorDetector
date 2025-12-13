@@ -51,6 +51,45 @@ Params.h
 README.md
 ```
 ### 4.3创建构建目录
+创建CMakeLists.txt文件
+```Bash
+cmake_minimum_required(VERSION 3.10)
+project(ArmorDetector)
+
+# 设置 C++ 标准为 C++14
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+
+# 查找 OpenCV 库
+find_package(OpenCV REQUIRED)
+
+# 包含头文件目录
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+# 添加可执行文件
+add_executable(main
+    main.cpp
+    ArmorDetector.cpp
+    ArmorDetector.h
+    ArmorDescriptor.cpp
+    ArmorDescriptor.h
+    LightDescriptor.cpp
+    LightDescriptor.h
+    Params.h
+)
+
+# 链接 OpenCV 库
+target_link_libraries(main ${OpenCV_LIBS})
+
+# 设置输出目录
+set_target_properties(main PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+```
+创建build文件夹
 ```Bash
 # 进入项目目录
 cd ArmorDetector
@@ -72,8 +111,8 @@ cmake -D OpenCV_DIR=/path/to/opencv/build ..
 make
 ```
 ### 4.6运行项目<br>
-        之前的编译已经生成目标文件(我这里是main，可根据需要改动)
 ```Bash
+#之前的编译已经生成目标文件(我这里是main，可根据需要改动)
 ./main
 ```
 5.运行界面说明
@@ -102,4 +141,44 @@ Press 'q' to quit, 'r' to switch to RED, 'b' to switch to BLUE
 灯条数量: 4 -> 装甲板数量: 1
 Detected Small armor at: [320,240] [340,240] [340,260] [320,260]
 # 每帧都会输出类似信息
+```
+5.简要说明
+-----------
+Params.h中设置对应参数
+```Bash
+#ifndef PARAMS_H
+#define PARAMS_H
+
+#include <opencv2/opencv.hpp>
+
+struct Params
+{
+    // ============ 亮度阈值参数 ============
+    int brightness_threshold = 70; // 降低阈值
+
+    // ============ 灯条筛选参数 ============
+    float light_min_area = 20.0f;                 // 减小最小面积
+    float light_max_ratio = 4.0f;                 // 增大宽高比
+    float light_contour_min_solidity = 0.5f;      // 降低紧实度要求
+    float light_color_detect_extend_ratio = 1.1f; // 添加这个缺失的参数！
+
+    // ============ 灯条匹配参数 ============
+    float light_max_angle_diff_ = 20.0f;       // 增大角度容差
+    float light_max_height_diff_ratio_ = 0.4f; // 增大高度差容差
+    float light_max_y_diff_ratio_ = 0.6f;      // 增大Y方向容差
+    float light_min_x_diff_ratio_ = 0.7f;      // 减小X方向最小距离
+
+    // ============ 装甲板参数 ============
+    float armor_max_aspect_ratio_ = 6.0f; // 增大最大宽高比
+    float armor_min_aspect_ratio_ = 1.0f; // 减小最小宽高比
+    float armor_big_armor_ratio = 3.2f;   // 调整大小装甲分界
+    float armor_small_armor_ratio = 1.8f;
+
+    // ============ 调试参数 ============
+    bool show_binary_image = false;
+    bool show_light_contours = false;
+    bool debug_mode = false;
+};
+
+#endif // PARAMS_H
 ```
