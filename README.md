@@ -28,12 +28,12 @@
 
 4.项目编译运行流程
 -------------
-4.1克隆仓库
+### 4.1克隆仓库
 ```Bash
 git clone https://github.com/yourusername/ArmorDetector.git
 cd ArmorDetector
 ```
-4.2检查项目结构
+### 4.2检查项目结构
 ```Bash
 ls -la
 ````
@@ -50,7 +50,7 @@ LightDescriptor.cpp
 Params.h
 README.md
 ```
-4.3创建构建目录
+### 4.3创建构建目录
 ```Bash
 # 进入项目目录
 cd ArmorDetector
@@ -59,7 +59,7 @@ cd ArmorDetector
 mkdir build
 cd build
 ```
-4.4配置CMake
+### 4.4配置CMake
 ```Bash
 # 基本配置
 cmake ..
@@ -67,15 +67,39 @@ cmake ..
 # 如果需要指定OpenCV路径（如果安装了多个版本）
 cmake -D OpenCV_DIR=/path/to/opencv/build ..
 ```
-4.5编译项目
+### 4.5编译项目
 ```Bash
 make
 ```
-4.6运行项目<br>
+### 4.6运行项目<br>
         之前的编译已经生成目标文件(我这里是main，可根据需要改动)
 ```Bash
 ./main
 ```
 5.运行界面说明
 ---------
+### 1. 主窗口<br>
+* 图像窗口：显示实时检测结果<br>
+* 左上角信息：<br>
 
+    FPS：当前处理帧率（120-150为正常）<br>
+
+    Enemy：当前检测的敌方颜色（RED/BLUE）<br>
+
+* 检测框：<br>
+
+    细线框：所有检测到的装甲板<br>
+
+    粗紫线框：最优目标装甲板<br>
+
+    绿色圆点：装甲板中心<br>
+
+    文字标签：装甲板类型（Big/Small）和得分<br>
+### 2.终端输出
+```Bash
+Armor Detection Started!
+Press 'q' to quit, 'r' to switch to RED, 'b' to switch to BLUE
+灯条数量: 4 -> 装甲板数量: 1
+Detected Small armor at: [320,240] [340,240] [340,260] [320,260]
+# 每帧都会输出类似信息
+```
