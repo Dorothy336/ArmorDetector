@@ -37,7 +37,7 @@ cd ArmorDetector
 ```Bash
 ls -la
 ````
-应该可以看见以下文件(不包括演示视频，运行时自行添加)
+应该可以看见以下文件(不包括演示视频，运行时自行添加相应视频文件)
 ```text
 CMakeLists.txt
 main.cpp
@@ -49,6 +49,10 @@ LightDescriptor.h
 LightDescriptor.cpp
 Params.h
 README.md
+```
+代码中对应的视频文件路径结合自身改动，我的如下：
+```Bash
+cv::VideoCapture cap("/home/tianmiao/cpp/TEST01/Detector1/test.mp4");
 ```
 ### 4.3创建构建目录
 创建CMakeLists.txt文件
